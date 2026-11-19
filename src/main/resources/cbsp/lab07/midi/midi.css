@@ -1,0 +1,112 @@
+.midi-controls { justify-content: space-between; gap: .65rem; }
+.midi-controls .task-buttons, .midi-replay .actions { flex-wrap: wrap; }
+
+.task-buttons [aria-pressed="true"],
+#play {
+  border-color: #035856;
+  background: #035856;
+  color: white;
+}
+
+#status { margin: .7rem 0; color: var(--muted); }
+
+.midi-lanes {
+  --label-width: 6.25rem;
+  margin: .7rem 0;
+}
+
+.midi-lane {
+  display: grid;
+  grid-template-columns: var(--label-width) minmax(0, 1fr);
+  align-items: center;
+  min-height: 2.05rem;
+  font-size: .9rem;
+}
+
+.midi-ruler {
+  position: relative;
+  height: 1.3rem;
+  margin-left: var(--label-width);
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.midi-ruler span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.midi-ruler span:first-child { transform: none; }
+.midi-ruler span:last-child { transform: translateX(-100%); }
+.midi-ruler::before { position: absolute; right: calc(100% + .55rem); content: "ms"; }
+
+[data-lane] {
+  position: relative;
+  height: 2rem;
+  background: linear-gradient(#d6e2e9, #d6e2e9) no-repeat center / 100% 1px;
+}
+
+[data-lane]::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--playhead, 0%);
+  width: 2px;
+  background: #354f61;
+  content: "";
+}
+
+.midi-marker {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  width: .7rem;
+  height: .7rem;
+  border: 2px solid #768c9b;
+  border-radius: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+}
+
+.midi-marker[data-seen] { border-color: var(--adaptive); background: var(--adaptive); }
+.midi-marker[data-action="OMITTED"], .midi-marker[data-action="CLEANUP"] { border-color: var(--fixed); }
+.midi-marker[data-action="OMITTED"] { border-radius: 2px; }
+.midi-marker[data-action="CLEANUP"][data-seen] { background: var(--fixed); }
+
+.midi-replay {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--border);
+}
+
+.midi-replay .range-control input { margin: .15rem 0 0; }
+#clock, #count { font-variant-numeric: tabular-nums; }
+#sound-control { align-self: center; white-space: nowrap; }
+#sound { margin: 0 .25rem 0 0; accent-color: var(--adaptive); }
+#audio-status { margin: .55rem 0 0; color: var(--muted); font-size: .9rem; }
+
+.midi-state {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.state-content { padding: 0; margin: .55rem 0 0; list-style: none; }
+.state-content li { padding: .4rem 0; border-bottom: 1px solid #e4edf1; }
+.state-content li:last-child { border-bottom: 0; }
+.state-content strong { display: block; }
+.state-content p { margin: .3rem 0 0; }
+.state-content small, .empty { color: var(--muted); font-size: .9rem; }
+.state-content code { display: block; margin-top: .5rem; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) {
+  .midi-controls .task-buttons { margin-top: 0; justify-content: flex-start; }
+  #record { margin-top: .6rem; }
+  .midi-replay { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+  .midi-replay .actions { grid-column: 1 / -1; margin-top: 0; justify-content: flex-start; }
+}
+
+@media (max-width: 430px) {
+  .midi-lanes { --label-width: 4.8rem; }
+  .midi-lane { font-size: .8rem; }
+}

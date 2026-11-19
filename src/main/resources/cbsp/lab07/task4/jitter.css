@@ -1,0 +1,91 @@
+.jitter-chart { margin: 1rem 0; }
+
+.jitter-chart .chart-heading p,
+.audio p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+[data-delay][aria-pressed="true"] {
+  border-color: #035856;
+  background: #035856;
+  color: white;
+}
+
+.legend {
+  display: flex;
+  gap: 1.1rem;
+  margin: .8rem 0 .55rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.legend span { display: inline-flex; align-items: center; gap: .45rem; }
+
+#packets { padding: 0; margin: 0; list-style: none; }
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) 10rem;
+  gap: .85rem;
+  align-items: center;
+}
+
+li.timeline-row {
+  min-height: 3rem;
+  border-top: 1px solid #e3ebef;
+}
+
+.lane,
+.ruler { position: relative; }
+
+.lane {
+  height: 1.5rem;
+  background: linear-gradient(#d6e2e9, #d6e2e9) no-repeat center / 100% 1px;
+}
+
+.arrival,
+.deadline { display: inline-block; }
+.arrival { width: .65rem; height: .65rem; border-radius: 50%; background: #187ca3; }
+.deadline { width: 2px; height: 1rem; background: #664095; }
+
+.lane .arrival,
+.lane .deadline { position: absolute; transform: translateX(-50%); }
+.lane .arrival { top: .3rem; z-index: 1; }
+.lane .deadline { top: .28rem; }
+.lane [hidden] { display: none; }
+
+.result { display: grid; gap: .1rem; }
+.result strong { color: var(--adaptive); }
+.result small { color: var(--muted); font-size: .8rem; }
+[data-outcome="LATE"] .result strong { color: #893b15; }
+[data-outcome="LOST"] .result strong { color: var(--muted); }
+
+.ruler {
+  grid-column: 2;
+  height: 1.65rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.ruler span { position: absolute; top: .3rem; transform: translateX(-50%); white-space: nowrap; }
+.ruler span:first-child { transform: none; }
+.ruler span:last-child { transform: translateX(-100%); }
+
+.audio { justify-content: space-between; }
+.audio p { margin-top: .3rem; }
+.audio audio { width: min(100%, 330px); height: 42px; }
+
+@media (max-width: 690px) {
+  .audio audio { display: block; margin-top: .75rem; }
+}
+
+@media (max-width: 530px) {
+  .timeline-row { grid-template-columns: auto minmax(0, 1fr); column-gap: .35rem; row-gap: 0; }
+  li.timeline-row { padding: .45rem 0 .2rem; }
+  .lane, .ruler { grid-column: 1 / -1; }
+  .lane { grid-row: 2; }
+  .result { justify-items: end; text-align: right; }
+}

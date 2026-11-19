@@ -1,0 +1,123 @@
+.latency-chart { margin-top: 1rem; }
+
+.latency-chart .chart-heading {
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.latency-chart .chart-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+#replay {
+  border-color: #035856;
+  background: #035856;
+  color: white;
+}
+
+#audio-cues {
+  margin: .7rem 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+[data-publication][aria-pressed="true"] {
+  border-color: #035856;
+  color: white;
+  background: #035856;
+}
+
+.timing-rows { padding: 0; margin: .75rem 0 0; list-style: none; }
+
+.timing-row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) 5.9rem;
+  align-items: center;
+  gap: .8rem;
+}
+
+.timing-rows .timing-row {
+  min-height: 2.6rem;
+  border-top: 1px solid #e3ebef;
+  --mark-color: #49667a;
+}
+
+.timing-row[data-time="requestMs"] { --mark-color: var(--adaptive); }
+.timing-row[data-time="publicationMs"] { --mark-color: #664095; }
+.timing-row[data-time="playoutMs"] { --mark-color: var(--fixed); }
+
+.timing-row output {
+  justify-self: end;
+  color: #132c3d;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  position: relative;
+  height: 1.4rem;
+  background: linear-gradient(#d6e2e9, #d6e2e9) no-repeat center / 100% 1px;
+}
+
+.track i { position: absolute; top: 50%; }
+
+.latency-chart[data-playing] .track::after {
+  position: absolute;
+  inset-block: 0;
+  left: var(--playhead);
+  width: 2px;
+  background: #132c3d;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.timing-rows .track i {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: var(--mark-color);
+  transform: translate(-50%, -50%);
+}
+
+.timing-rows i:not([style]) { visibility: hidden; }
+
+.timing-measures {
+  margin-top: .65rem;
+  padding: .3rem 0;
+  border-block: 1px solid var(--border);
+  background: #f6f9fa;
+}
+
+.timing-measures .timing-row { min-height: 3.4rem; }
+.timing-measures small { display: block; color: var(--muted); font-size: .85rem; }
+.timing-measures output { color: var(--measure-color); }
+.startup { --measure-color: var(--adaptive); }
+.capture { --measure-color: var(--fixed); }
+
+.timing-measures i {
+  height: .48rem;
+  border-radius: 1rem;
+  background: var(--measure-color);
+  transform: translateY(-50%);
+}
+
+.time-scale {
+  position: relative;
+  grid-column: 2;
+  height: 1.35rem;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.time-scale span { position: absolute; top: .3rem; transform: translateX(-50%); white-space: nowrap; }
+.time-scale span:first-child { transform: none; }
+.time-scale span:last-child { transform: translateX(-100%); }
+
+@media (max-width: 560px) {
+  .timing-row { grid-template-columns: minmax(0, 1fr) auto; gap: .1rem .5rem; }
+  .timing-row .track { grid-column: 1 / -1; grid-row: 2; }
+  .timing-rows .timing-row, .timing-measures .timing-row { padding: .35rem 0 0; }
+  .time-scale { grid-column: 1 / -1; }
+  .latency-controls .actions { flex-wrap: wrap; }
+}

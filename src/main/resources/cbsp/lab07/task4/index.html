@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jitter and packet deadlines · Lab 07</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/jitter.css">
+  <script src="/simulation.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <p class="lab">Lab 07 / Task 4</p>
+      <h1>Jitter and packet deadlines</h1>
+      <p class="instruction">Move the playout deadlines and listen to what happens when packets miss them.</p>
+    </header>
+
+    <section class="controls" aria-label="Playout delay controls">
+      <div class="range-control">
+        <div class="control-heading">
+          <label for="delay">Playout delay</label>
+          <output id="delay-value" for="delay">–</output>
+        </div>
+        <input id="delay" type="range" disabled>
+        <div class="limits" aria-hidden="true"><span id="delay-min"></span><span id="delay-max"></span></div>
+      </div>
+      <div class="actions" aria-label="Compare delays">
+        <button type="button" data-delay="40" aria-pressed="false" disabled>40 ms</button>
+        <button type="button" data-delay="50" aria-pressed="false" disabled>50 ms</button>
+      </div>
+    </section>
+    <p id="error" role="alert" hidden></p>
+
+    <section class="chart jitter-chart" aria-labelledby="timeline-heading">
+      <div class="chart-heading">
+        <h2 id="timeline-heading">Packet timeline</h2>
+        <p id="summary" role="status">Loading packets…</p>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="arrival"></i>Arrival</span>
+        <span><i class="deadline"></i>Deadline</span>
+      </div>
+      <ol id="packets" aria-label="Packet arrival times, deadlines and outcomes"></ol>
+      <div class="timeline-row" aria-hidden="true">
+        <div id="ruler" class="ruler"></div>
+      </div>
+    </section>
+
+    <section class="controls audio" aria-labelledby="audio-heading">
+      <div>
+        <h2 id="audio-heading">Listen to this run</h2>
+        <p>Each late or lost packet leaves a 20 ms gap in the repeating tone.</p>
+      </div>
+      <audio id="preview" aria-labelledby="audio-heading" controls preload="none"></audio>
+    </section>
+    <noscript>Enable JavaScript to run the interactive comparison.</noscript>
+
+    <template id="packet-row">
+      <li class="timeline-row">
+        <strong class="packet"></strong>
+        <div class="lane" aria-hidden="true"><i class="arrival"></i><i class="deadline"></i></div>
+        <span class="result"><strong></strong><small></small></span>
+      </li>
+    </template>
+  </main>
+</body>
+</html>

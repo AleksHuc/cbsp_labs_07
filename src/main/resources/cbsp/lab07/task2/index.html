@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HLS playlist reload · Lab 07</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/hls.css">
+  <script src="/simulation.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <p class="lab">Lab 07 / Task 2</p>
+      <h1>HLS playlist reload</h1>
+      <p class="instruction">Choose a variant and reload its playlist to see which segments the client downloads.</p>
+    </header>
+
+    <section class="controls hls-controls" aria-labelledby="variants-heading">
+      <div>
+        <h2 id="variants-heading">Variants from the master playlist</h2>
+        <div id="variants" class="variants" role="group" aria-labelledby="variants-heading"></div>
+      </div>
+      <div class="actions">
+        <button id="reset" type="button" disabled>Reset</button>
+        <button id="next" type="button" disabled>Reload playlist</button>
+      </div>
+    </section>
+    <p id="error" role="alert" hidden></p>
+
+    <section class="chart playlist" aria-labelledby="playlist-heading">
+      <div class="chart-heading">
+        <h2 id="playlist-heading">Current media playlist</h2>
+        <p id="summary" role="status">Loading playlist…</p>
+      </div>
+      <p id="playlist-path"></p>
+      <ol id="segments" aria-label="Segments listed in the current media playlist"></ol>
+      <p id="removed" role="status" hidden></p>
+    </section>
+    <section class="controls download-audio" aria-labelledby="audio-heading">
+      <div>
+        <h2 id="audio-heading">Play downloaded audio</h2>
+        <p id="audio-segments" aria-live="polite">Waiting for segments…</p>
+        <p id="audio-error" role="status" hidden></p>
+      </div>
+      <audio id="playback" aria-labelledby="audio-heading" controls preload="metadata"></audio>
+    </section>
+    <noscript>Enable JavaScript to run the HLS comparison.</noscript>
+
+    <template id="variant">
+      <label class="variant">
+        <input type="radio" name="variant">
+        <span><strong></strong><small></small></span>
+      </label>
+    </template>
+    <template id="segment">
+      <li class="segment">
+        <p class="segment-number"></p>
+        <p class="segment-state"></p>
+        <p class="segment-file"></p>
+        <dl class="segment-details">
+          <div><dt>Duration</dt><dd></dd></div>
+          <div><dt>Size</dt><dd></dd></div>
+        </dl>
+      </li>
+    </template>
+  </main>
+</body>
+</html>

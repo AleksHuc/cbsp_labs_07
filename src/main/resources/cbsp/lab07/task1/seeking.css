@@ -1,0 +1,67 @@
+.seek-player { min-width: 0; }
+.seek-player audio { display: block; width: 100%; height: 42px; margin: .8rem 0; }
+.seek-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+.jump {
+  border-color: #035856;
+  background: #035856;
+  color: white;
+}
+
+.playback-heading,
+.timeline-labels,
+.request-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .5rem;
+}
+
+.playback-heading { margin-top: 1.15rem; }
+h3 { margin: 0; font-size: 1rem; }
+.playhead-value { font-variant-numeric: tabular-nums; }
+
+.timeline {
+  position: relative;
+  height: .75rem;
+  margin-top: .45rem;
+  border-radius: .4rem;
+  background: #e6edf1;
+}
+
+.buffered { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.buffered span { position: absolute; height: 100%; background: var(--policy-color); opacity: .55; }
+.seek-target,
+.playhead { position: absolute; top: -.18rem; bottom: -.18rem; transform: translateX(-50%); }
+.seek-target { border-left: 2px dashed var(--muted); }
+.playhead { width: 3px; border-radius: 2px; background: #132c3d; }
+
+.timeline-labels,
+.buffer-label,
+.seek-result,
+.request-summary {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.timeline-labels { margin-top: .35rem; }
+.buffer-label { margin: .35rem 0; }
+.seek-result { min-height: 2.7rem; margin: .45rem 0 0; color: #132c3d; }
+
+.requests { padding-top: .8rem; border-top: 1px solid var(--border); }
+.request-summary { margin: .3rem 0 .65rem; }
+.requests ul { list-style: none; padding: 0; margin: 0; }
+.requests li { padding: .55rem 0; border-top: 1px solid #e6edf1; }
+.request-heading { flex-wrap: wrap; }
+.status { color: var(--adaptive); }
+.status[data-status="200"] { color: var(--fixed); }
+.request-state { color: var(--muted); font-size: .875rem; }
+.request-details { display: grid; gap: .18rem; margin: .25rem 0 0; font-size: .875rem; }
+.request-details div { display: grid; grid-template-columns: 7.7rem minmax(0, 1fr); }
+.request-details dt { margin: 0; }
+.request-details dd { margin: 0; overflow-wrap: anywhere; font-family: ui-monospace, monospace; font-weight: 500; }
+
+@media (max-width: 690px) {
+  .seek-players { grid-template-columns: 1fr; }
+  .seek-result { min-height: 1.4rem; }
+}

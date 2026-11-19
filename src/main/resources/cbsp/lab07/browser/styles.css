@@ -1,0 +1,225 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #132c3d;
+  background: #f1f5f7;
+  --paper: #fff;
+  --muted: #476275;
+  --border: #d1dce4;
+  --adaptive: #007170;
+  --fixed: #b45221;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+main {
+  width: min(1060px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 2.5rem 0;
+}
+
+.intro { margin-bottom: 1.75rem; }
+
+.lab {
+  margin: 0 0 .5rem;
+  color: var(--muted);
+  font-size: .875rem;
+  font-weight: 650;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  letter-spacing: -.045em;
+  line-height: 1.05;
+}
+
+.instruction {
+  margin: .75rem 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.controls,
+.policy,
+.chart {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--paper);
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.range-control { flex: 1 1 auto; }
+
+.control-heading,
+.limits,
+.chart-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  align-items: baseline;
+}
+
+label { font-weight: 650; }
+
+output {
+  color: var(--adaptive);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+input[type="range"] {
+  display: block;
+  width: 100%;
+  min-height: 1.75rem;
+  margin: .4rem 0 .1rem;
+  accent-color: var(--adaptive);
+  cursor: pointer;
+}
+
+.limits {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.actions { display: flex; gap: .65rem; }
+
+button {
+  min-height: 2.85rem;
+  padding: .55rem .95rem;
+  border: 1px solid var(--border);
+  border-radius: .55rem;
+  color: inherit;
+  background: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+}
+
+#next {
+  border-color: #035856;
+  background: #035856;
+  color: white;
+}
+
+button:hover:not(:disabled) { filter: brightness(.92); }
+button:disabled { opacity: .54; cursor: default; }
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #187ca3;
+  outline-offset: 3px;
+}
+
+#error {
+  padding: .7rem 1rem;
+  border-left: 3px solid var(--fixed);
+  background: #fff3e8;
+  color: #6f3216;
+}
+
+.policies {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.policy,
+.chart { padding: 1.15rem 1.25rem; }
+
+.policy { --policy-color: var(--adaptive); }
+.policy[data-policy="fixed"] { --policy-color: var(--fixed); }
+
+h2 { margin: 0; font-size: 1.15rem; }
+
+.policy h2 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.policy h2::before {
+  width: 1.2rem;
+  border-top: 3px solid var(--policy-color);
+  content: "";
+}
+
+.policy[data-policy="fixed"] h2::before { border-top-style: dashed; }
+
+.buffer {
+  margin: .65rem 0 .35rem;
+  color: var(--muted);
+}
+
+.buffer strong {
+  color: #132c3d;
+  font-size: 2.3rem;
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+
+.buffer-track {
+  height: .5rem;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: #e6edf1;
+}
+
+.buffer-track div {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--policy-color);
+  transition: width 180ms ease-out;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .5rem;
+  margin: .9rem 0 0;
+}
+
+dt { color: var(--muted); font-size: .875rem; }
+dd { margin: .2rem 0 0; font-weight: 650; }
+dd[data-stalled] { color: #893b15; }
+
+.policy audio {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+#progress { margin: 0; color: var(--muted); font-size: .875rem; }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: clamp(240px, 35vw, 315px);
+  margin-top: .7rem;
+}
+
+@media (max-width: 690px) {
+  main { width: calc(100% - 1.5rem); padding-top: 1.5rem; }
+  .controls { display: block; }
+  .actions { margin-top: 1rem; justify-content: flex-end; }
+  .policies { gap: .65rem; }
+  .policy, .chart { padding: .9rem; }
+}
+
+@media (max-width: 470px) {
+  .policies { grid-template-columns: 1fr; }
+  .chart-heading { align-items: flex-start; flex-direction: column; gap: .25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buffer-track div { transition: none; }
+}

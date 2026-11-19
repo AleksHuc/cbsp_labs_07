@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTTP audio seeking · Lab 07</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/seeking.css">
+  <script src="/seeking.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <p class="lab">Lab 07 / Task 1</p>
+      <h1>HTTP audio seeking</h1>
+      <p class="instruction">Start playback and jump to 0:35 while that position is outside the buffered audio. Try each player in turn.</p>
+    </header>
+
+    <div class="policies seek-players">
+      <section class="policy seek-player" data-src="/range/episode.mp3" aria-labelledby="range-label">
+        <h2 id="range-label">Byte ranges enabled</h2>
+      </section>
+      <section class="policy seek-player" data-src="/full/episode.mp3" data-policy="fixed" aria-labelledby="full-label">
+        <h2 id="full-label">Whole-file responses</h2>
+      </section>
+    </div>
+    <noscript>Enable JavaScript to compare the two players.</noscript>
+
+    <template id="player">
+      <audio controls preload="none"></audio>
+      <div class="seek-actions">
+        <button class="jump" type="button" disabled>Jump to 0:35</button>
+        <button class="restart" type="button">Reset player</button>
+      </div>
+
+      <div class="playback-heading"><h3>Playback</h3><output class="playhead-value">0:00</output></div>
+      <div class="timeline" aria-hidden="true">
+        <div class="buffered"></div><div class="seek-target"></div><div class="playhead"></div>
+      </div>
+      <div class="timeline-labels" aria-hidden="true"><span>0:00</span><span>0:45</span></div>
+      <p class="buffer-label">Buffered: 0:00</p>
+      <p class="seek-result" role="status"></p>
+
+      <div class="requests">
+        <h3>HTTP requests</h3>
+        <p class="request-summary">Waiting for playback.</p>
+        <ul aria-label="Recent audio requests"></ul>
+      </div>
+    </template>
+  </main>
+</body>
+</html>

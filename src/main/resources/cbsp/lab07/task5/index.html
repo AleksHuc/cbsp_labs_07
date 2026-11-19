@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playback latency · Lab 07</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/latency.css">
+  <script src="/simulation.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <p class="lab">Lab 07 / Task 5</p>
+      <h1>Playback latency</h1>
+      <p class="instruction">Move the Play request and compare the two delays on the timeline.</p>
+    </header>
+
+    <section class="controls latency-controls" aria-label="Playback timing controls">
+      <div class="range-control">
+        <div class="control-heading">
+          <label for="request">When Play is pressed</label>
+          <output id="request-value" for="request">–</output>
+        </div>
+        <input id="request" type="range" min="0" step="50" disabled>
+        <div class="limits" aria-hidden="true"><span>0 ms</span><span id="request-max"></span></div>
+      </div>
+      <div class="actions" role="group" aria-label="Publication type">
+        <button type="button" data-publication="full" aria-pressed="true" disabled>Full segment</button>
+        <button type="button" data-publication="partial" aria-pressed="false" disabled>Partial segment</button>
+      </div>
+    </section>
+    <p id="error" role="alert" hidden></p>
+
+    <section class="chart latency-chart" aria-labelledby="timeline-heading">
+      <div class="chart-heading">
+        <div>
+          <h2 id="timeline-heading">Playback timeline</h2>
+          <p>Time since capture</p>
+        </div>
+        <button id="replay" type="button" aria-describedby="audio-cues" disabled>Play timeline</button>
+      </div>
+      <p id="audio-cues">Listen for a low click at capture, a high click at the Play request, and an excerpt when playback starts.</p>
+
+      <ol class="timing-rows" aria-label="Event times">
+        <li class="timing-row" data-time="captureMs">
+          <strong>Capture</strong><span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </li>
+        <li class="timing-row" data-time="requestMs">
+          <strong>Play requested</strong><span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </li>
+        <li class="timing-row" data-time="publicationMs">
+          <strong>Segment published</strong><span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </li>
+        <li class="timing-row" data-time="playoutMs">
+          <strong>First sound</strong><span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </li>
+      </ol>
+
+      <div class="timing-measures" aria-label="Measured latencies" aria-live="polite">
+        <div class="timing-row startup" data-measure="startupMs">
+          <div><strong>Startup delay</strong><small>Play request to first sound</small></div>
+          <span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </div>
+        <div class="timing-row capture" data-measure="captureToPlayoutMs">
+          <div><strong>Capture-to-playout</strong><small>Capture to first sound</small></div>
+          <span class="track" aria-hidden="true"><i></i></span><output>–</output>
+        </div>
+      </div>
+      <div class="timing-row" aria-hidden="true"><div id="time-scale" class="time-scale"></div></div>
+    </section>
+    <noscript>Enable JavaScript to use the interactive timeline.</noscript>
+  </main>
+</body>
+</html>

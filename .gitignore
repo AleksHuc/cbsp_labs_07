@@ -1,0 +1,46 @@
+# Maven build output and generated lab results
+/target/
+/output/
+/dist/
+*.class
+*.log
+
+# Maven-generated metadata
+.flattened-pom.xml
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+pom.xml.releaseBackup
+release.properties
+
+# Distribution archives in the project root
+/*.zip
+
+# Local IDE configuration
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# Local agent configuration and credentials
+/.agents/
+/.codex/
+/.aws/
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Caches, editor backups, and operating-system files
+__pycache__/
+*~
+*.swp
+*.swo
+*.bak
+*.orig
+.DS_Store
+Thumbs.db
+Desktop.ini

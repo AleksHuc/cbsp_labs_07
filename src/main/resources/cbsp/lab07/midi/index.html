@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MIDI over UDP · Lab 07</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/midi.css">
+  <script type="module" src="/simulation.js"></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <p class="lab">Lab 07 / Tasks 6–9</p>
+      <h1>MIDI over UDP</h1>
+      <p class="instruction">Step through a recorded loopback run and follow each MIDI event from sender to playout.</p>
+    </header>
+
+    <section class="controls midi-controls" aria-label="MIDI experiment controls">
+      <div class="actions task-buttons" role="group" aria-label="Exercise">
+        <button type="button" data-task="6" aria-pressed="false">6 · Send</button>
+        <button type="button" data-task="7" aria-pressed="false">7 · Receive</button>
+        <button type="button" data-task="8" aria-pressed="false">8 · Schedule</button>
+        <button type="button" data-task="9" aria-pressed="false">9 · Cleanup</button>
+      </div>
+      <button id="record" type="button" disabled>Run again</button>
+    </section>
+    <p id="status" role="status">Recording the MIDI session…</p>
+    <p id="error" role="alert" hidden></p>
+
+    <section class="chart midi-chart" aria-labelledby="timeline-heading">
+      <div class="chart-heading">
+        <h2 id="timeline-heading">MIDI timeline</h2>
+        <output id="clock">0.00 ms</output>
+      </div>
+      <div class="midi-lanes" aria-hidden="true">
+        <div class="midi-ruler"></div>
+        <div class="midi-lane"><strong>Sender</strong><div data-lane="sender"></div></div>
+        <div class="midi-lane"><strong>Receiver</strong><div data-lane="receiver"></div></div>
+        <div class="midi-lane"><strong>Scheduler</strong><div data-lane="scheduler"></div></div>
+        <div class="midi-lane"><strong>Playout</strong><div data-lane="playout"></div></div>
+      </div>
+      <div class="midi-replay">
+        <div class="actions">
+          <button id="play" type="button" disabled>Replay at ¼ speed</button>
+          <button id="step" type="button" disabled>Next event</button>
+          <label id="sound-control" hidden><input id="sound" type="checkbox" checked> Sound</label>
+        </div>
+        <div class="range-control">
+          <label for="position">Event position</label>
+          <input id="position" type="range" min="0" step="1" value="0" disabled>
+        </div>
+        <output id="count" for="position">0 / 0</output>
+      </div>
+      <p id="audio-status" role="status" hidden></p>
+    </section>
+
+    <div class="midi-state">
+      <section class="policy" aria-labelledby="event-heading">
+        <h2 id="event-heading">Current event</h2>
+        <div id="current" class="state-content" aria-live="polite"></div>
+      </section>
+      <section class="policy" id="queue-card" aria-labelledby="queue-heading" hidden>
+        <h2 id="queue-heading">Playback queue</h2>
+        <ul id="queue" class="state-content" aria-live="polite"></ul>
+      </section>
+      <section class="policy" id="notes-card" aria-labelledby="notes-heading" hidden>
+        <h2 id="notes-heading">Active notes</h2>
+        <ul id="notes" class="state-content" aria-live="polite"></ul>
+      </section>
+    </div>
+    <noscript>Enable JavaScript to replay the MIDI trace.</noscript>
+  </main>
+</body>
+</html>
